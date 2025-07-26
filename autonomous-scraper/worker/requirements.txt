@@ -1,0 +1,84 @@
+# Core Dependencies for Web Scraping Worker
+
+# MongoDB Async Driver
+motor==3.3.2              # Async MongoDB driver for Python
+pymongo==4.6.0            # MongoDB driver (required by motor)
+
+# Web Scraping and Browser Automation
+playwright==1.44.0        # Modern browser automation library
+beautifulsoup4==4.12.2    # HTML parsing and extraction
+lxml==4.9.3               # Fast XML and HTML parser (used by BeautifulSoup)
+html5lib==1.1             # Pure-python HTML parser
+
+# HTTP Client and Networking
+httpx==0.25.2             # Async HTTP client for API communication
+aiohttp==3.9.1            # Alternative async HTTP client
+requests==2.31.0          # Synchronous HTTP client (fallback)
+
+# Environment and Configuration
+python-dotenv==1.0.0      # Load environment variables from .env files
+pydantic==2.5.0           # Data validation and settings management
+pydantic-settings==2.1.0  # Settings management for Pydantic
+
+# Date and Time Utilities
+python-dateutil==2.8.2    # Extensions to the standard datetime module
+
+# Logging and Monitoring
+structlog==23.2.0         # Structured logging for better analysis
+colorlog==6.8.0           # Colored logging output for development
+
+# Text Processing and Data Extraction
+textstat==0.7.3           # Text statistics and readability analysis
+readability==0.3.1        # Content extraction from web pages
+newspaper3k==0.2.8        # Article extraction and processing
+
+# Data Processing and Storage
+pandas==2.1.4             # Data manipulation and analysis
+numpy==1.24.4             # Numerical computing support
+
+# Image Processing (for screenshot capabilities)
+Pillow==10.1.0            # Python Imaging Library
+
+# URL Processing and Validation
+validators==0.22.0        # URL and data validation utilities
+urllib3==2.1.0            # HTTP library with connection pooling
+
+# Async Utilities
+asyncio-throttle==1.0.2   # Rate limiting for async operations
+aiofiles==23.2.1          # Async file operations
+
+# Error Handling and Retry Logic
+tenacity==8.2.3           # Retry library with exponential backoff
+backoff==2.2.1            # Function decoration for backoff and retry
+
+# Security and Safety
+bleach==6.1.0             # HTML sanitization
+markupsafe==2.1.3         # Safe string handling
+
+# Performance and Monitoring
+psutil==5.9.6             # System and process utilities
+memory-profiler==0.61.0   # Memory usage profiling
+
+# Optional: Machine Learning for Content Analysis
+scikit-learn==1.3.2       # Machine learning library
+nltk==3.8.1               # Natural language processing
+
+# Optional: Database Utilities
+sqlalchemy==2.0.23        # SQL toolkit (if needed for other databases)
+
+# Development and Testing
+pytest==7.4.3            # Testing framework
+pytest-asyncio==0.21.1   # Async testing support
+pytest-mock==3.12.0      # Mocking utilities for tests
+
+# Optional: Advanced Scraping Features
+selenium==4.15.2          # Alternative browser automation (fallback)
+scrapy==2.11.0            # Comprehensive scraping framework (if needed)
+
+# Optional: Content Analysis
+langdetect==1.0.9         # Language detection for scraped content
+chardet==5.2.0            # Character encoding detection
+
+# Optional: Data Export
+openpyxl==3.1.2           # Excel file handling
+xlsxwriter==3.1.9         # Excel file creation
