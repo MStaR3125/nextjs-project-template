@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Basic Meta Tags -->
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#111827" />
+  
+  <!-- SEO and Description -->
+  <meta name="description" content="Autonomous Web Scraping System - A modern dashboard for managing web scraping jobs with real-time monitoring and intelligent agents." />
+  <meta name="keywords" content="web scraping, automation, dashboard, react, fastapi, mongodb" />
+  <meta name="author" content="Autonomous Scraper Team" />
+  
+  <!-- Open Graph Meta Tags for Social Sharing -->
+  <meta property="og:title" content="Autonomous Web Scraping Dashboard" />
+  <meta property="og:description" content="Manage and monitor web scraping jobs with our intelligent automation system" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="http://localhost:3000" />
+  
+  <!-- Twitter Card Meta Tags -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Autonomous Web Scraping Dashboard" />
+  <meta name="twitter:description" content="Manage and monitor web scraping jobs with our intelligent automation system" />
+  
+  <!-- Favicon and Icons -->
+  <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+  <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+  
+  <!-- Web App Manifest -->
+  <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+  
+  <!-- Google Fonts for Better Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS (will be built and included during build process) -->
+  <link rel="stylesheet" href="%PUBLIC_URL%/tailwind.css">
+  
+  <!-- Page Title -->
+  <title>Autonomous Web Scraping Dashboard</title>
+  
+  <!-- Inline Critical CSS for Dark Theme -->
+  <style>
+    /* Prevent flash of unstyled content */
+    body {
+      font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background-color: #111827;
+      color: #ffffff;
+      margin: 0;
+      padding: 0;
+      line-height: 1.6;
+    }
+    
+    /* Loading spinner for initial page load */
+    .initial-loader {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 9999;
+    }
+    
+    .spinner {
+      width: 40px;
+      height: 40px;
+      border: 4px solid #374151;
+      border-top: 4px solid #3b82f6;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+    
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    
+    /* Hide loader when React app loads */
+    .app-loaded .initial-loader {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <!-- No JavaScript Fallback -->
+  <noscript>
+    <div style="text-align: center; padding: 50px; background: #111827; color: #ffffff; font-family: Arial, sans-serif;">
+      <h1>JavaScript Required</h1>
+      <p>This application requires JavaScript to run properly.</p>
+      <p>Please enable JavaScript in your browser and refresh the page.</p>
+    </div>
+  </noscript>
+  
+  <!-- Initial Loading Indicator -->
+  <div class="initial-loader">
+    <div class="spinner"></div>
+    <p style="text-align: center; margin-top: 20px; color: #9ca3af;">Loading Dashboard...</p>
+  </div>
+  
+  <!-- React App Root Element -->
+  <div id="root"></div>
+  
+  <!-- 
+    This HTML file is a template.
+    If you open it directly in the browser, you will see an empty page.
+    
+    You can add webfonts, meta tags, or analytics to this file.
+    The build step will place the bundled scripts into the <body> tag.
+    
+    To begin development, run `npm start` or `yarn start`.
+    To create a production bundle, use `npm run build` or `yarn build`.
+  -->
+  
+  <!-- Remove loading indicator when app loads -->
+  <script>
+    // Hide initial loader when React app mounts
+    window.addEventListener('load', function() {
+      setTimeout(function() {
+        document.body.classList.add('app-loaded');
+      }, 100);
+    });
+    
+    // Service Worker Registration (optional, for PWA features)
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function() {
+        navigator.serviceWorker.register('/service-worker.js')
+          .then(function(registration) {
+            console.log('SW registered: ', registration);
+          })
+          .catch(function(registrationError) {
+            console.log('SW registration failed: ', registrationError);
+          });
+      });
+    }
+  </script>
+</body>
+</html>
