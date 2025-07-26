@@ -1,0 +1,92 @@
+# Docker Compose configuration for Autonomous Web Scraping System
+# This orchestrates all services: MongoDB, FastAPI backend, React frontend, and Python worker
+version: '3.8'
+
+services:
+  # MongoDB Database Service
+  # Stores scraping jobs, results, and system metadata
+  mongo:
+    image: mongo:5.0
+    container_name: mongo_db
+    ports:
+      - "27017:27017"  # Expose MongoDB port for external access if needed
+    volumes:
+      - mongo-data:/data/db  # Persistent storage for database data
+    networks:
+      - scraper-net
+    # Optional: Add authentication in production
+    # environment:
+    #   - MONGO_INITDB_ROOT_USERNAME=admin
+    #   - MONGO_INITDB_ROOT_PASSWORD=password
+
+  # FastAPI Backend Service
+  # Provides REST API for job management and data retrieval
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: backend_api
+    ports:
+      - "8000:8000"  # API accessible at http://localhost:8000
+    depends_on:
+      - mongo  # Ensure MongoDB starts before backend
+    environment:
+      - MONGO_URL=mongodb://mongo:27017  # Internal Docker network connection
+      - DATABASE_NAME=scraperDB
+      - COLLECTION_NAME=jobs
+    volumes:
+      - ./backend:/app  # Mount for development hot-reload
+    networks:
+      - scraper-net
+    restart: unless-stopped  # Auto-restart on failure
+
+  # Python Scraping Worker Service
+  # Processes scraping jobs using Playwright and BeautifulSoup
+  worker:
+    build:
+      context: ./worker
+      dockerfile: Dockerfile
+    container_name: scraping_worker
+    depends_on:
+      - mongo    # Needs database for job polling
+      - backend  # Needs backend API for coordination
+    environment:
+      - MONGO_URL=mongodb://mongo:27017
+      - API_BASE_URL=http://backend:8000
+      - DATABASE_NAME=scraperDB
+      - COLLECTION_NAME=jobs
+      - POLL_INTERVAL=5  # Poll every 5 seconds for new jobs
+    volumes:
+      - ./worker:/app  # Mount for development
+    networks:
+      - scraper-net
+    restart: unless-stopped
+
+  # React Frontend Service
+  # User interface for job submission and monitoring
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: frontend_ui
+    ports:
+      - "3000:3000"  # Web UI accessible at http://localhost:3000
+    depends_on:
+      - backend  # Needs backend API for data
+    environment:
+      - REACT_APP_API_URL=http://localhost:8000  # Backend API URL for browser
+    networks:
+      - scraper-net
+    restart: unless-stopped
+
+# Custom network for service communication
+networks:
+  scraper-net:
+    driver: bridge
+    # Enables internal DNS resolution between containers
+
+# Persistent volumes for data storage
+volumes:
+  mongo-data:
+    driver: local
+    # MongoDB data persists across container restarts
