@@ -1,0 +1,175 @@
+/**
+ * Tailwind CSS Base Styles
+ * This file imports Tailwind's base, components, and utilities
+ * The build process will compile this into the final CSS
+ */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/**
+ * Custom base styles for the application
+ */
+@layer base {
+  /* Ensure consistent box-sizing across all elements */
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
+
+  /* Set default font and background for the entire application */
+  html {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  }
+
+  body {
+    margin: 0;
+    padding: 0;
+    background-color: #111827; /* gray-900 */
+    color: #ffffff;
+    line-height: 1.6;
+  }
+
+  /* Improve focus visibility for accessibility */
+  *:focus {
+    outline: 2px solid #3b82f6; /* blue-500 */
+    outline-offset: 2px;
+  }
+}
+
+/**
+ * Custom component styles
+ */
+@layer components {
+  /* Custom scrollbar for better dark theme integration */
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: #374151; /* gray-700 */
+    border-radius: 4px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: #6b7280; /* gray-500 */
+    border-radius: 4px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #9ca3af; /* gray-400 */
+  }
+
+  /* Loading animation for buttons and elements */
+  .loading-spinner {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border: 2px solid #374151;
+    border-radius: 50%;
+    border-top-color: #ffffff;
+    animation: spin 1s ease-in-out infinite;
+  }
+
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  /* Smooth transitions for interactive elements */
+  .smooth-transition {
+    transition: all 0.2s ease-in-out;
+  }
+
+  /* Custom table hover effect */
+  .table-row-hover:hover {
+    background-color: #374151; /* gray-700 */
+  }
+}
+
+/**
+ * Utility classes for specific use cases
+ */
+@layer utilities {
+  /* Text truncation with ellipsis */
+  .text-truncate {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  /* Hide scrollbar but keep functionality */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Glass morphism effect for modern UI */
+  .glass-effect {
+    background: rgba(31, 41, 55, 0.8);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(75, 85, 99, 0.3);
+  }
+
+  /* Gradient text effect */
+  .gradient-text {
+    background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+}
+
+/**
+ * Print styles for better printing experience
+ */
+@media print {
+  body {
+    background: white !important;
+    color: black !important;
+  }
+
+  .no-print {
+    display: none !important;
+  }
+}
+
+/**
+ * High contrast mode support for accessibility
+ */
+@media (prefers-contrast: high) {
+  .bg-gray-800 {
+    background-color: #000000 !important;
+  }
+
+  .bg-gray-900 {
+    background-color: #000000 !important;
+  }
+
+  .text-gray-400 {
+    color: #ffffff !important;
+  }
+
+  .border-gray-700 {
+    border-color: #ffffff !important;
+  }
+}
+
+/**
+ * Reduced motion support for accessibility
+ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
